@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BL API Test</string>
+    <string name="intro">BlockLauncher\'s API Tester</string>
+    <string name="test_patch">Test patch import</string>
+    <string name="test_script">Test ModPE Script import</string>
+    <string name="test_texturepack">Test texturepack import</string>
+    <string name="test_skin">Test skin import</string>
+    <string name="blocklauncher_failed">BlockLauncher couldn\'t recognize our request. Make sure you have correctly installed, latest genuine copy of BL.</string>
+    <string name="blocklauncher_not_installed">BlockLauncher isn\'t installed. Please, install it.</string>
+    <string name="copyrights">BlockLauncher by Zhuowei Zhang.\n
+        Fly in survival PTPatch(0.8.1 port) by Kyurem838.\n
+        ColorChat script by Zhuowei Zhang.\n
+        Skin of Anakin Skywalker.\n
+        Modified Slickcraft by Zhuowei Zhang.</string>
+    <string name="run">Run</string>
+
+</resources>
