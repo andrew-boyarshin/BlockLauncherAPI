@@ -18,6 +18,7 @@ public class BlockLauncher {
 	public static final String cls_free = "net.zhuoweizhang.mcpelauncher.LauncherAppActivity";
 	public static final String pkg = "net.zhuoweizhang.mcpelauncher.pro";
 	public static final String cls = "net.zhuoweizhang.mcpelauncher.pro.LauncherProActivity";
+	public static final String pkg_api = pkg_free + ".api";
 
 	public BlockLauncher(Context con) {
 		mContext = con;
@@ -29,8 +30,24 @@ public class BlockLauncher {
 	// ==
 	// ================================================
 
+	/**
+	 * Checks, is full public BlockLauncher's API available or not.
+	 * @return result of check
+	 */
+	public boolean isAPIAvailable() {
+		if (!isInstalled())
+			return false;
+		int version = getVersion();
+		if (version == -1)
+			return false;
+		if (version < 43)
+			return false;
+		return true;
+	}
+
 	public void installPatch(File object) {
-		final String clsImportPatch = pkg_free + ".ImportPatchActivity";
+		if (!isAPIAvailable()) return;
+		final String clsImportPatch = pkg_api + ".ImportPatchActivity";
 		try {
 			Intent bl = new Intent("android.intent.action.VIEW");
 			bl.setData(Uri.fromFile(object));
@@ -44,7 +61,8 @@ public class BlockLauncher {
 	}
 
 	public void installScript(File object) {
-		final String clsImportPatch = pkg_free + ".ImportScriptActivity";
+		if (!isAPIAvailable()) return;
+		final String clsImportPatch = pkg_api + ".ImportScriptActivity";
 		try {
 			Intent bl = new Intent("net.zhuoweizhang.mcpelauncher.action.IMPORT_SCRIPT");
 			bl.setData(Uri.fromFile(object));
@@ -58,7 +76,8 @@ public class BlockLauncher {
 	}
 
 	public void installTexturepack(File object) {
-		final String clsImportPatch = pkg_free + ".ImportTexturepackActivity";
+		if (!isAPIAvailable()) return;
+		final String clsImportPatch = pkg_api + ".ImportTexturepackActivity";
 		try {
 			Intent bl = new Intent("android.intent.action.VIEW");
 			bl.setData(Uri.fromFile(object));
@@ -72,7 +91,8 @@ public class BlockLauncher {
 	}
 
 	public void installSkin(File object) {
-		final String clsImportPatch = pkg_free + ".ImportSkinActivity";
+		if (!isAPIAvailable()) return;
+		final String clsImportPatch = pkg_api + ".ImportSkinActivity";
 		try {
 			Intent bl = new Intent("net.zhuoweizhang.mcpelauncher.action.SET_SKIN");
 			bl.setData(Uri.fromFile(object));
@@ -131,7 +151,7 @@ public class BlockLauncher {
 			return runFree();
 	}
 
-	public boolean runPro() {
+	protected boolean runPro() {
 		Intent in = new Intent("android.intent.action.MAIN").addCategory("android.intent.category.LAUNCHER");
 		in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		try {
@@ -144,7 +164,7 @@ public class BlockLauncher {
 		return true;
 	}
 
-	public boolean runFree() {
+	protected boolean runFree() {
 		Intent in = new Intent("android.intent.action.MAIN").addCategory("android.intent.category.LAUNCHER");
 		in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		try {
@@ -155,5 +175,18 @@ public class BlockLauncher {
 			return false;
 		}
 		return true;
+	}
+
+	public int getVersion() {
+		if (!isInstalled())
+			return -1;
+		PackageManager pm = mContext.getPackageManager();
+		try {
+			PackageInfo pi = pm.getPackageInfo(isPro() ? pkg : pkg_free, 0);
+			return pi.versionCode;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+			return -1;
+		}
 	}
 }
