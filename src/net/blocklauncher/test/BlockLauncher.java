@@ -1,3 +1,10 @@
+/// This class and any its derivatives are free for uncommercial use. If you want to use it in any projects,
+/// that brings you(or somebody else) money(including advertising), you MUST contact me via e-mail
+/// (boyarshinand at gmail dot com).
+/// This rule(as any other license) applies from publishing moment to all already existing copies of this class.
+/// I(STALKER_2010) can change it at any time, and changes will apply to all copies from 10 January, 2014
+/// forever or next change of this license.
+/// Copies means any copies(with any modifications or not).
 package net.blocklauncher.test;
 
 import java.io.File;
@@ -12,16 +19,26 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.widget.Toast;
 
+/**
+ * BlockLauncher's API wrapper. Run methods of this class to know or to do something with BL.
+ * @author STALKER_2010
+ */
 public class BlockLauncher {
+	// Context, we need it to run BL
 	private Context mContext;
+	// BlockLauncher's classes and packages
 	public static final String pkg_free = "net.zhuoweizhang.mcpelauncher";
 	public static final String cls_free = "net.zhuoweizhang.mcpelauncher.LauncherAppActivity";
 	public static final String pkg = "net.zhuoweizhang.mcpelauncher.pro";
 	public static final String cls = "net.zhuoweizhang.mcpelauncher.pro.LauncherProActivity";
 	public static final String pkg_api = pkg_free + ".api";
 
-	public BlockLauncher(Context con) {
-		mContext = con;
+	/**
+	 * Simple BlockLauncher's API wrapper constructor
+	 * @param context Context for wrapper
+	 */
+	public BlockLauncher(Context context) {
+		mContext = context;
 	}
 
 	// ================================================
@@ -35,16 +52,22 @@ public class BlockLauncher {
 	 * @return result of check
 	 */
 	public boolean isAPIAvailable() {
+		// Is BL installed?
 		if (!isInstalled())
 			return false;
+		// Is BL new?
 		int version = getVersion();
 		if (version == -1)
 			return false;
-		if (version < 43)
+		if (version < 47)
 			return false;
 		return true;
 	}
 
+	/**
+	 * Installs patch. Uses new API. Detects BL version.
+	 * @param object file with patch
+	 */
 	public void installPatch(File object) {
 		if (!isAPIAvailable()) return;
 		final String clsImportPatch = pkg_api + ".ImportPatchActivity";
@@ -60,6 +83,10 @@ public class BlockLauncher {
 		}
 	}
 
+	/**
+	 * Installs ModPE Script. Uses new API. Detects BL version.
+	 * @param object file with script
+	 */
 	public void installScript(File object) {
 		if (!isAPIAvailable()) return;
 		final String clsImportPatch = pkg_api + ".ImportScriptActivity";
@@ -75,6 +102,10 @@ public class BlockLauncher {
 		}
 	}
 
+	/**
+	 * Installs texturepack. Uses new API. Detects BL version.
+	 * @param object file with texturepack
+	 */
 	public void installTexturepack(File object) {
 		if (!isAPIAvailable()) return;
 		final String clsImportPatch = pkg_api + ".ImportTexturepackActivity";
@@ -90,6 +121,10 @@ public class BlockLauncher {
 		}
 	}
 
+	/**
+	 * Installs skin. Uses new API. Detects BL version.
+	 * @param object file with skin
+	 */
 	public void installSkin(File object) {
 		if (!isAPIAvailable()) return;
 		final String clsImportPatch = pkg_api + ".ImportSkinActivity";
@@ -111,6 +146,10 @@ public class BlockLauncher {
 	// ==
 	// ================================================
 
+	/**
+	 * Check, is any type of BL installed or not. 
+	 * @return result of check
+	 */
 	public boolean isInstalled() {
 		PackageManager pm = mContext.getPackageManager();
 		try {
@@ -126,6 +165,10 @@ public class BlockLauncher {
 		}
 	}
 
+	/**
+	 * Check, is BL Pro installed.
+	 * @return result of check
+	 */
 	public boolean isPro() {
 		PackageManager pm = mContext.getPackageManager();
 		try {
@@ -139,6 +182,10 @@ public class BlockLauncher {
 		}
 	}
 
+	/**
+	 * Run any kind of BlockLauncher
+	 * @return is successful
+	 */
 	public boolean run() {
 		if (!isInstalled())
 			return false;
@@ -151,6 +198,10 @@ public class BlockLauncher {
 			return runFree();
 	}
 
+	/**
+	 * Run BlockLauncher Pro
+	 * @return is successful
+	 */
 	protected boolean runPro() {
 		Intent in = new Intent("android.intent.action.MAIN").addCategory("android.intent.category.LAUNCHER");
 		in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -164,6 +215,10 @@ public class BlockLauncher {
 		return true;
 	}
 
+	/**
+	 * Run BlockLauncher Free
+	 * @return is successful
+	 */
 	protected boolean runFree() {
 		Intent in = new Intent("android.intent.action.MAIN").addCategory("android.intent.category.LAUNCHER");
 		in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -177,6 +232,10 @@ public class BlockLauncher {
 		return true;
 	}
 
+	/**
+	 * Get BlockLauncher version. Useful for checking features.
+	 * @return int - versionCode of BL
+	 */
 	public int getVersion() {
 		if (!isInstalled())
 			return -1;

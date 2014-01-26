@@ -9,11 +9,13 @@
     <string name="test_skin">Test skin import</string>
     <string name="blocklauncher_failed">BlockLauncher couldn\'t recognize our request. Make sure you have correctly installed, latest genuine copy of BL.</string>
     <string name="blocklauncher_not_installed">BlockLauncher isn\'t installed. Please, install it.</string>
-    <string name="copyrights">BlockLauncher by Zhuowei Zhang.\n
-        Fly in survival PTPatch(0.8.1 port) by Kyurem838.\n
-        ColorChat script by Zhuowei Zhang.\n
-        Skin of Anakin Skywalker.\n
-        Modified Slickcraft by Zhuowei Zhang.</string>
+    <string name="blocklauncher_version">BL version: </string>
+    <string name="copyrights">Copyrights:
+\n* BlockLauncher: Zhuowei Zhang.
+\n* Patch(Fly in survival): Kyurem838.
+\n* Script(ColorChat): Zhuowei Zhang.
+\n* Skin(Anakin Skywalker): unknown.
+\n* Texturepack(Modified Slickcraft): Zhuowei Zhang.</string>
     <string name="run">Run</string>
 
 </resources>

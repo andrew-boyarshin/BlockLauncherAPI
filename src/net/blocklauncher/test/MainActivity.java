@@ -13,6 +13,7 @@ import android.content.res.AssetManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	protected BlockLauncher mBL;
@@ -21,6 +22,8 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		mBL = new BlockLauncher(this);
+		String version = getString(R.string.blocklauncher_version) + mBL.getVersion();
+		((TextView)findViewById(R.id.bl_version)).setText(version);
 	}
 	
 	@Override
@@ -33,6 +36,7 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.action_run) {
 			mBL.run();
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
